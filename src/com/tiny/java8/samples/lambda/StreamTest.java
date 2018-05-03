@@ -17,4 +17,22 @@ public class StreamTest {
         Stream.concat(Stream.iterate(1, i -> i), Stream.generate(Math::random))
                 .forEach(System.out::println);
     }
+
+    @Test
+    public void test1() {
+        Stream.of(1, 2, 3, 4, 5, 6, 7, 8).parallel().forEach(System.out::println);
+        Stream.of(1, 2, 3, 4, 5, 6, 7, 8).parallel().forEachOrdered(System.out::println);
+    }
+
+    @Test
+    public void test2() {
+        Stream.of(1, 2, 3, 4).peek(System.out::println).forEach(System.out::println);
+    }
+
+    @Test
+    public void test3() {
+        Stream.of(1, 2, 3, 4).peek(System.out::println)
+                .limit(2)
+                .forEach(System.out::println);
+    }
 }
