@@ -1,14 +1,12 @@
 package com.tiny.java8.samples.lambda;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Stream;
 
 /**
  * @author tiny.wang
  */
-public class Stream1 {
+public class Stream0 {
     public static void main(String[] args) {
         Stream.of(1, 2, 3, 4).forEach(System.out::println);
         Stream.of(Arrays.asList(1, 2, 3, 4)).forEach(System.out::println);
@@ -19,7 +17,8 @@ public class Stream1 {
         Stream.iterate(1, i -> i * 2).limit(4).forEach(System.out::println);
         Stream.generate(Math::random).limit(4).forEach(System.out::println);
         Arrays.stream(new int[]{5, 6, 7, 8}, 0, 2).forEach(System.out::println);
-        // unreached
+        // limit use test
+        Stream.of(1, 2, 3, 4, 5, 6, 7).peek(System.out::println).filter(i -> i % 2 != 0).limit(2).forEach(System.out::println);
         System.exit(1);
     }
 }
