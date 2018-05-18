@@ -81,15 +81,15 @@ public class IntStream0 {
         Arrays.stream(new int[]{1, 4, 2, 7}).spliterator().tryAdvance((int i) -> System.out.println("spliterator=" + i));
 
         // generate IntStream
-        java.util.stream.IntStream.builder().add(1).add(2).build().forEach(i -> System.out.println("builder=" + i));
-        java.util.stream.IntStream.generate(() -> ((int) Math.random())).limit(2).forEach(i -> System.out.println("generate=" + i));
-        java.util.stream.IntStream.iterate(1, i -> i + 1).limit(2).forEach(i -> System.out.println("iterate=" + i));
-        java.util.stream.IntStream.of(1, 2, 3).forEach(i -> System.out.println("of=" + i));
-        java.util.stream.IntStream.range(1, 3).forEach(i -> System.out.println("range=" + i));
-        java.util.stream.IntStream.rangeClosed(1, 3).forEach(i -> System.out.println("rangeClosed=" + i));
-        java.util.stream.IntStream.concat(Arrays.stream(new int[]{1, 2}), Arrays.stream(new int[]{1, 3})).forEach(i -> System.out.println("concat=" + i));
+        IntStream.builder().add(1).add(2).build().forEach(i -> System.out.println("builder=" + i));
+        IntStream.generate(() -> ((int) Math.random())).limit(2).forEach(i -> System.out.println("generate=" + i));
+        IntStream.iterate(1, i -> i + 1).limit(2).forEach(i -> System.out.println("iterate=" + i));
+        IntStream.of(1, 2, 3).forEach(i -> System.out.println("of=" + i));
+        IntStream.range(1, 3).forEach(i -> System.out.println("range=" + i));
+        IntStream.rangeClosed(1, 3).forEach(i -> System.out.println("rangeClosed=" + i));
+        IntStream.concat(Arrays.stream(new int[]{1, 2}), Arrays.stream(new int[]{1, 3})).forEach(i -> System.out.println("concat=" + i));
         // empty
-        java.util.stream.IntStream.empty().forEach(System.out::println);
+        IntStream.empty().forEach(System.out::println);
 
     }
 }
