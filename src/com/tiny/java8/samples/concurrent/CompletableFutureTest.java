@@ -8,7 +8,7 @@ import java.util.concurrent.ForkJoinPool;
 /**
  * @author tiny.wang
  */
-public class CompletableFuture1 {
+public class CompletableFutureTest {
 
     /**
      * about accept
