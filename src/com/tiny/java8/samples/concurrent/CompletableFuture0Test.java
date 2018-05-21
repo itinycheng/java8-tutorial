@@ -4,11 +4,12 @@ import org.junit.Test;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author tiny.wang
  */
-public class CompletableFutureTest {
+public class CompletableFuture0Test {
 
     /**
      * about accept
@@ -45,45 +46,20 @@ public class CompletableFutureTest {
     }
 
     /**
-     * complete, cancel
-     */
-    @Test
-    public void test2() {
-        CompletableFuture.supplyAsync(this::supply).complete("complete");
-        CompletableFuture.supplyAsync(this::supply).cancel(true);
-    }
-
-    /**
      * about run
      */
     @Test
-    public void test3() {
+    public void test2() {
         CompletableFuture.supplyAsync(this::supply).thenRun(this::supply);
         CompletableFuture.supplyAsync(this::supply).thenRunAsync(this::supply);
         CompletableFuture.supplyAsync(this::supply).thenRunAsync(this::supply, new ForkJoinPool());
     }
 
     /**
-     * TODO
-     * about exception
-     */
-    @Test
-    public void test4() {
-        // true, may interrupt thread; false, thread execute completed normally
-        boolean bool = CompletableFuture.supplyAsync(this::supply).thenRun(() -> sleep(5_000)).completeExceptionally(new InterruptedException());
-        System.out.println("bool = " + bool);
-        CompletableFuture.supplyAsync(this::exception).exceptionally(ex -> {
-            System.out.println(ex.toString());
-            return "default";
-        }).thenAccept(s -> System.out.println(s + "-q"));
-        sleep(1000);
-    }
-
-    /**
      * about runAfter
      */
     @Test
-    public void test5() {
+    public void test3() {
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(this::supply);
         CompletableFuture.supplyAsync(this::supply).runAfterBoth(future1, this::supply);
         CompletableFuture.supplyAsync(this::supply).runAfterBothAsync(future1, this::supply);
@@ -97,7 +73,7 @@ public class CompletableFutureTest {
      * about combine
      */
     @Test
-    public void test6() {
+    public void test4() {
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(this::supply);
         CompletableFuture<Void> future2 = CompletableFuture.runAsync(() -> System.out.println(supply()));
         CompletableFuture.supplyAsync(this::supply).thenCombine(future2, this::combine);
@@ -109,7 +85,7 @@ public class CompletableFutureTest {
      * about compose
      */
     @Test
-    public void test7() {
+    public void test5() {
         CompletableFuture<String> future1 = CompletableFuture.supplyAsync(this::supply);
         CompletableFuture<Void> future2 = CompletableFuture.runAsync(() -> System.out.println(supply()));
         CompletableFuture.supplyAsync(this::supply).thenCompose(s -> future1);
@@ -121,7 +97,7 @@ public class CompletableFutureTest {
      * about handle
      */
     @Test
-    public void test8() {
+    public void test6() {
         CompletableFuture.supplyAsync(this::supply).handle(this::combine);
         CompletableFuture.supplyAsync(this::supply).handleAsync(this::combine);
         CompletableFuture.supplyAsync(this::supply).handleAsync(this::combine, new ForkJoinPool());
@@ -131,7 +107,7 @@ public class CompletableFutureTest {
      * about obtrude
      */
     @Test
-    public void test9() {
+    public void test7() {
         CompletableFuture.supplyAsync(this::supply).obtrudeException(new RuntimeException("obtrudeException"));
         CompletableFuture.supplyAsync(this::supply).obtrudeValue("obtrudeValue");
     }
@@ -140,21 +116,45 @@ public class CompletableFutureTest {
      * about when
      */
     @Test
-    public void test10() {
+    public void test8() {
         CompletableFuture.supplyAsync(this::supply).whenComplete(this::combine);
         CompletableFuture.supplyAsync(this::supply).whenCompleteAsync(this::combine);
         CompletableFuture.supplyAsync(this::supply).whenCompleteAsync(this::combine, new ForkJoinPool());
     }
 
-    /** TODO
-     * about when
+    /**
+     * TODO
+     * remain
      */
     @Test
-    public void test11() {
+    public void test9() throws Exception {
         CompletableFuture.supplyAsync(this::supply).isDone();
         CompletableFuture.supplyAsync(this::supply).isCancelled();
         CompletableFuture.supplyAsync(this::supply).isCompletedExceptionally();
+        CompletableFuture.supplyAsync(this::supply).complete("te");
+        CompletableFuture.supplyAsync(this::supply).cancel(true);
+        CompletableFuture.supplyAsync(this::supply).get();
+        CompletableFuture.supplyAsync(this::supply).get(1, TimeUnit.SECONDS);
+        CompletableFuture.supplyAsync(this::supply).getNow(null);
+        CompletableFuture.supplyAsync(this::supply).getNumberOfDependents();
+        CompletableFuture.supplyAsync(this::supply).join();
+        sleep(1000);
+    }
 
+    /**
+     * TODO
+     * about exception
+     */
+    @Test
+    public void test10() {
+        // true, may interrupt thread; false, thread execute completed normally
+        boolean bool = CompletableFuture.supplyAsync(this::supply).thenRun(() -> sleep(5_000)).completeExceptionally(new InterruptedException());
+        System.out.println("bool = " + bool);
+        CompletableFuture.supplyAsync(this::exception).exceptionally(ex -> {
+            System.out.println(ex.toString());
+            return "default";
+        }).thenAccept(s -> System.out.println(s + "-q"));
+        sleep(1000);
     }
 
     private String supply() {
