@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author tiny.wang
  */
-public class CompletableFuture0Test {
+public class CompletableFuture0Test extends BasicOpr{
 
     /**
      * about accept
@@ -148,7 +148,7 @@ public class CompletableFuture0Test {
     @Test
     public void test10() {
         // true, may interrupt thread; false, thread execute completed normally
-        boolean bool = CompletableFuture.supplyAsync(this::supply).thenRun(() -> sleep(5_000)).completeExceptionally(new InterruptedException());
+        boolean bool = CompletableFuture.supplyAsync(this::supply).thenRunAsync(() -> sleep(5_000)).completeExceptionally(new InterruptedException());
         System.out.println("bool = " + bool);
         CompletableFuture.supplyAsync(this::exception).exceptionally(ex -> {
             System.out.println(ex.toString());
@@ -157,24 +157,4 @@ public class CompletableFuture0Test {
         sleep(1000);
     }
 
-    private String supply() {
-        return Thread.currentThread().getName() + "-supply";
-    }
-
-    public String exception() {
-        throw new RuntimeException("exception");
-    }
-
-    private String combine(Object o1, Object o2) {
-        return o1 + ", " + o2;
-    }
-
-    private void sleep(long millis) {
-        try {
-            Thread.sleep(Math.max(0, millis));
-            System.out.println("sleep");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }
