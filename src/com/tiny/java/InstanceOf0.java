@@ -1,13 +1,11 @@
 package com.tiny.java;
 
-import org.junit.Test;
-
 /**
  * @author tiny.wang
  */
-public class OprTest {
-    @Test
-    public void test0() {
+public class InstanceOf0 {
+
+    public static void main(String[] args) {
         Child child = new Child();
         Parent parent = new Parent();
         System.out.println(child instanceof Parent);
@@ -24,7 +22,7 @@ public class OprTest {
 
     }
 
-    static class Child extends Parent implements Unity{
+    static class Child extends Parent implements Unity {
 
     }
 }

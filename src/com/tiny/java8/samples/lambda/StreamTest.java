@@ -35,4 +35,16 @@ public class StreamTest {
                 .limit(2)
                 .forEach(System.out::println);
     }
+
+    @Test
+    public void test4(){
+        Stream.of(1,2,3,4).map(i -> i % (i - 3)).forEach(System.out::println);
+    }
+
+    @Test
+    public void test5() throws InterruptedException {
+        Stream.of(1,2,3,4).parallel().map(i -> i % (i - 3)).forEach(System.out::println);
+        Thread.sleep(1000L);
+    }
+
 }
