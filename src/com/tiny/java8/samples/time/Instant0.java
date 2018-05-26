@@ -1,13 +1,14 @@
 package com.tiny.java8.samples.time;
 
 import java.time.Clock;
+import java.time.Duration;
 import java.time.Instant;
-import java.time.Month;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 
 /**
  * @author tiny.wang
@@ -30,10 +31,25 @@ public class Instant0 {
         int nano = max.getNano();
         int i1 = epoch.get(ChronoField.NANO_OF_SECOND);
         long aLong = epoch.getLong(ChronoField.INSTANT_SECONDS);
-        ZonedDateTime time = epoch.atZone(ZoneId.systemDefault());
         boolean before = epoch.isBefore(min);
-        //todo add ，month
-        epoch.plus(1, ChronoUnit.DAYS);
+        boolean after = epoch.isAfter(max);
+        Instant plus = epoch.plus(1, ChronoUnit.DAYS);
+        Instant plus1 = epoch.plus(Duration.ofDays(1).plusHours(1));
+        Instant plus2 = epoch.plus(Duration.ofDays(-1).plusHours(-1));
+        Instant minus = epoch.minus(Duration.ofDays(1).plusHours(1));
+        // TODO
+        // epoch.range(ChronoField.PROLEPTIC_MONTH);
+        // epoch.adjustInto()
+        // epoch.query(temporal -> )
+        // epoch.until(ChronoUnit.DAYS, IsoFields.WEEK_BASED_YEARS);
+        // epoch.with(temporal -> )
+        // epoch.truncatedTo()
+        long l = epoch.toEpochMilli();
+        long epochSecond = epoch.getEpochSecond();
+        int nano1 = epoch.getNano();
+        OffsetDateTime offsetDateTime = epoch.atOffset(ZoneOffset.ofHours(1));
+        ZonedDateTime time = epoch.atZone(ZoneId.systemDefault());
+        OffsetDateTime offsetDateTime1 = epoch.atOffset(ZoneOffset.ofHours(18));
         System.out.println(Instant.now());
     }
 }
