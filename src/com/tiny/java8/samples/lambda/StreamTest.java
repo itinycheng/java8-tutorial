@@ -37,6 +37,15 @@ public class StreamTest {
     }
 
     @Test
+    public void test6() {
+        Stream.of(1, 2, 3, 4).peek(System.out::println)
+                .limit(4)
+                .filter(i -> i % 3 == 0)
+                .limit(1)
+                .forEach(System.out::println);
+    }
+
+    @Test
     public void test4(){
         Stream.of(1,2,3,4).map(i -> i % (i - 3)).forEach(System.out::println);
     }
