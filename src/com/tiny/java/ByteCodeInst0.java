@@ -14,7 +14,7 @@ public class ByteCodeInst0 {
 
     public static void main(String[] args) {
         Runnable r = () -> System.out.println(0);
-        Consumer<String> c = (a) -> System.out.println(a);
+        Consumer<String> c = System.out::println;
         test();
         test0();
         test1();
